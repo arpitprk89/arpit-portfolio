@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="description" content="Arpit Pareek — Class XII PCM student and independent builder exploring AI, Bayesian reasoning, reinforcement learning, and cognitive computing from Rajasthan, India.">
+  <meta property="og:title" content="Arpit Pareek — AI, Reasoning & Human-Centred Technology">
+  <meta property="og:description" content="I learn by building: independent projects at the intersection of AI, decision-making, learning, and human behaviour.">
+  <meta property="og:type" content="website">
+  <title>Arpit Pareek — AI, Reasoning & Human-Centred Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0d0c;
+      --panel: #111512;
+      --panel-2: #151a16;
+      --text: #f1f3ed;
+      --muted: #a3ada3;
+      --quiet: #6d786f;
+      --line: #293129;
+      --accent: #c6f36b;
+      --accent-soft: rgba(198, 243, 107, .10);
+      --mint: #a5e8d0;
+      --max: 1140px;
+      --radius: 20px;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Space Grotesk', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      min-width: 320px;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 82% 0%, rgba(116, 153, 77, .10), transparent 34rem),
+        var(--bg);
+      font: 16px/1.65 var(--sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, black, transparent 74%);
+    }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .skip-link { position: absolute; top: -60px; left: 16px; z-index: 999; background: var(--accent); color: #111; padding: 10px 14px; border-radius: 8px; font-weight: 700; }
+    .skip-link:focus { top: 12px; }
+    .container { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(255,255,255,.07); background: rgba(11,13,12,.88); backdrop-filter: blur(16px); }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font: 700 .95rem var(--display); letter-spacing: -.03em; white-space: nowrap; }
+    .brand-mark { display: grid; place-items: center; width: 33px; height: 33px; border: 1px solid rgba(198,243,107,.5); border-radius: 10px; color: var(--accent); font: 500 1rem var(--mono); }
+    .nav-links { list-style: none; display: flex; align-items: center; gap: clamp(16px, 3vw, 30px); }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .84rem; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--accent); }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: var(--panel); color: var(--text); padding: 8px 11px; border-radius: 9px; font: 500 .85rem var(--mono); cursor: pointer; }
+
+    .hero { min-height: 680px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); align-items: center; gap: clamp(44px, 7vw, 100px); padding-top: 84px; padding-bottom: 96px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--accent); font: 500 .72rem var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 25px; height: 1px; background: var(--accent); }
+    .hero h1 { max-width: 750px; margin: 25px 0 24px; font: 600 clamp(3.2rem, 6.5vw, 5.85rem)/.99 var(--display); letter-spacing: -.075em; }
+    .hero h1 .accent { color: var(--accent); }
+    .hero-lede { max-width: 660px; color: #bec5bd; font-size: clamp(1rem, 1.45vw, 1.14rem); line-height: 1.85; }
+    .hero-lede strong { color: var(--text); font-weight: 600; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 25px 0 30px; }
+    .tag { border: 1px solid var(--line); color: #c5cec4; background: rgba(255,255,255,.025); border-radius: 999px; padding: 6px 11px; font: 400 .72rem var(--mono); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 17px; border: 1px solid transparent; border-radius: 10px; font: 600 .88rem var(--sans); text-decoration: none; cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--accent); color: #171c11; }
+    .button-primary:hover { background: #d5ff88; }
+    .button-quiet { color: var(--text); border-color: var(--line); background: rgba(255,255,255,.025); }
+    .button-quiet:hover { border-color: #68765c; background: var(--panel); }
+    .arrow { color: currentColor; font-size: 1rem; }
+    .hero-visual { position: relative; width: min(100%, 340px); justify-self: center; }
+    .portrait-frame { position: relative; padding: 10px; border: 1px solid #394437; border-radius: 24px; background: linear-gradient(145deg, #20281c, #101310 55%); }
+    .portrait-frame::before { content: ""; position: absolute; inset: -11px 24px 24px -11px; z-index: -1; border: 1px solid rgba(198,243,107,.36); border-radius: 24px; }
+    .portrait-frame img { display: block; width: 100%; height: 410px; object-fit: cover; object-position: center top; border-radius: 16px; filter: saturate(.78) contrast(1.02); }
+    .portrait-caption { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 14px 5px 4px; }
+    .portrait-name { font: 600 .97rem var(--display); }
+    .portrait-meta { color: var(--quiet); font: .67rem var(--mono); text-transform: uppercase; letter-spacing: .06em; text-align: right; }
+    .status-note { position: absolute; left: -36px; bottom: 72px; max-width: 220px; padding: 12px 14px; border: 1px solid #394437; border-radius: 13px; background: #121712; box-shadow: 0 15px 35px rgba(0,0,0,.35); }
+    .status-note b { display: block; color: var(--accent); font: 500 .68rem var(--mono); margin-bottom: 3px; }
+    .status-note span { display: block; color: #d1d8cf; font-size: .79rem; line-height: 1.45; }
+    .hero-footnote { margin-top: 42px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--quiet); font: .68rem var(--mono); letter-spacing: .03em; }
+
+    .section { padding: 94px 0; border-top: 1px solid rgba(255,255,255,.075); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 36px; }
+    .section-kicker { margin-bottom: 10px; color: var(--accent); font: 500 .7rem var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .section-title { font: 600 clamp(2rem, 4.5vw, 3.25rem)/1.08 var(--display); letter-spacing: -.06em; }
+    .section-summary { max-width: 470px; color: var(--muted); font-size: .94rem; line-height: 1.8; }
+    .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(36px, 7vw, 90px); align-items: start; }
+    .prose p { margin-bottom: 17px; color: #b6c0b6; line-height: 1.95; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .quote { margin-top: 26px; padding: 19px 22px; border-left: 2px solid var(--accent); background: linear-gradient(90deg, var(--accent-soft), transparent); color: #e0e6dc; font: 500 1.05rem/1.7 var(--display); letter-spacing: -.015em; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .fact { min-height: 130px; padding: 22px; background: rgba(255,255,255,.018); }
+    .fact:nth-child(odd) { border-right: 1px solid var(--line); }
+    .fact:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .fact-label { color: var(--quiet); font: 500 .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+    .fact-value { margin-top: 12px; color: var(--text); font: 600 1.1rem/1.3 var(--display); }
+    .fact-value.accent { color: var(--accent); }
+
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .focus-card { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(155deg, rgba(255,255,255,.035), rgba(255,255,255,.008)); }
+    .focus-index { display: inline-block; margin-bottom: 27px; color: var(--accent); font: 500 .72rem var(--mono); }
+    .focus-card h3 { margin-bottom: 11px; font: 600 1.16rem/1.3 var(--display); letter-spacing: -.03em; }
+    .focus-card p { color: var(--muted); font-size: .87rem; line-height: 1.8; }
+    .focus-card .small-label { display: inline-block; margin-top: 18px; color: var(--quiet); font: .66rem var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 15px; }
+    .project-card { display: flex; flex-direction: column; min-height: 315px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(17,21,18,.8); transition: border-color .25s ease, transform .25s ease, background .25s ease; }
+    .project-card:hover { transform: translateY(-3px); border-color: #566348; background: #131914; }
+    .project-top { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-bottom: 20px; }
+    .project-number { color: var(--quiet); font: .7rem var(--mono); }
+    .project-status { border: 1px solid rgba(198,243,107,.22); border-radius: 999px; padding: 4px 8px; color: var(--accent); font: .62rem var(--mono); letter-spacing: .03em; white-space: nowrap; }
+    .project-card h3 { margin-bottom: 11px; font: 600 1.45rem/1.25 var(--display); letter-spacing: -.045em; }
+    .project-subtitle { margin-top: -4px; margin-bottom: 12px; color: var(--accent); font: .7rem var(--mono); }
+    .project-card p { color: var(--muted); font-size: .87rem; line-height: 1.8; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 19px; }
+    .project-tags span { padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,.04); color: #9aa59a; font: .64rem var(--mono); }
+    .project-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: auto; padding-top: 22px; }
+    .text-link { display: inline-flex; align-items: center; gap: 7px; color: var(--text); text-decoration: none; font-size: .8rem; font-weight: 600; }
+    .text-link span { color: var(--accent); transition: transform .2s ease; }
+    .text-link:hover span { transform: translate(3px,-2px); }
+    .project-card.featured { border-color: #46543b; background: linear-gradient(130deg, rgba(198,243,107,.075), transparent 52%), var(--panel); }
+    .project-card.featured .project-status { background: var(--accent); color: #17200f; border-color: var(--accent); }
+    .honesty-note { display: flex; gap: 13px; align-items: start; margin-top: 18px; padding: 17px 20px; border: 1px dashed #3a4437; border-radius: 13px; color: var(--muted); font-size: .81rem; line-height: 1.7; }
+    .honesty-note strong { color: var(--accent); white-space: nowrap; }
+
+    .timeline { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .timeline-item { position: relative; padding: 24px 25px 25px 27px; border-left: 1px solid #536447; background: rgba(255,255,255,.02); border-radius: 0 14px 14px 0; }
+    .timeline-date { color: var(--accent); font: 500 .7rem var(--mono); margin-bottom: 11px; }
+    .timeline-item h3 { font: 600 1.05rem var(--display); margin-bottom: 8px; }
+    .timeline-item p { color: var(--muted); font-size: .84rem; line-height: 1.75; }
+
+    .beyond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
+    .beyond-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.02); }
+    .beyond-card h3 { margin-bottom: 13px; font: 600 1.3rem var(--display); letter-spacing: -.035em; }
+    .beyond-card p { color: var(--muted); font-size: .88rem; line-height: 1.9; }
+    .principles { display: grid; gap: 12px; list-style: none; }
+    .principles li { display: flex; align-items: start; gap: 11px; color: #c3ccc2; font-size: .88rem; }
+    .principles li::before { content: "↳"; color: var(--accent); font: 500 1rem var(--mono); }
+
+    .contact-panel { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; padding: clamp(26px, 5vw, 56px); border: 1px solid #3c4934; border-radius: 26px; background: radial-gradient(ellipse at 0 0, rgba(198,243,107,.08), transparent 55%), var(--panel); }
+    .contact-panel h2 { max-width: 520px; margin: 16px 0; font: 600 clamp(2.2rem, 4.8vw, 3.75rem)/1.02 var(--display); letter-spacing: -.065em; }
+    .contact-panel .intro { max-width: 470px; color: var(--muted); font-size: .93rem; line-height: 1.85; }
+    .contact-list { display: grid; gap: 10px; align-content: center; }
+    .contact-link { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 16px; border: 1px solid var(--line); border-radius: 11px; background: rgba(0,0,0,.14); color: var(--text); text-decoration: none; transition: border-color .2s ease, background .2s ease; }
+    .contact-link:hover { border-color: #647254; background: rgba(198,243,107,.04); }
+    .contact-label { display: block; color: var(--quiet); font: .63rem var(--mono); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
+    .contact-value { font-size: .84rem; overflow-wrap: anywhere; }
+    .contact-arrow { color: var(--accent); }
+    footer { padding: 30px 0 40px; color: var(--quiet); font: .68rem var(--mono); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-top: 22px; border-top: 1px solid var(--line); }
+    .footer-inner a { color: #aab5a8; text-decoration: none; }
+    .footer-inner a:hover { color: var(--accent); }
+    .footer-note { text-align: right; }
+
+    @media (max-width: 860px) {
+      .hero { min-height: auto; grid-template-columns: minmax(0,1fr) 270px; gap: 40px; padding-top: 75px; padding-bottom: 75px; }
+      .hero h1 { font-size: clamp(3rem, 7vw, 4.6rem); }
+      .portrait-frame img { height: 340px; }
+      .status-note { left: -18px; }
+      .about-grid { gap: 36px; }
+      .contact-panel { gap: 25px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 34px, var(--max)); }
+      .nav { min-height: 66px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links { display: none; position: absolute; top: 65px; left: 0; right: 0; padding: 16px 20px 20px; background: rgba(11,13,12,.98); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 5px; }
+      .hero { grid-template-columns: 1fr; gap: 44px; padding-top: 60px; padding-bottom: 62px; }
+      .hero h1 { margin-top: 20px; font-size: clamp(3.2rem, 13vw, 5rem); }
+      .hero-visual { width: min(75%, 310px); margin: 0 auto; }
+      .portrait-frame img { height: 360px; }
+      .status-note { left: -28px; bottom: 78px; }
+      .hero-footnote { margin-top: 30px; }
+      .section { padding: 68px 0; }
+      .section-head { align-items: start; flex-direction: column; gap: 15px; margin-bottom: 26px; }
+      .about-grid, .contact-panel, .beyond-grid { grid-template-columns: 1fr; }
+      .facts { order: -1; }
+      .focus-grid { grid-template-columns: 1fr; }
+      .focus-card { padding: 21px; }
+      .focus-index { margin-bottom: 18px; }
+      .projects-grid, .timeline { grid-template-columns: 1fr; }
+      .project-card { min-height: 0; padding: 22px; }
+      .honesty-note { flex-direction: column; gap: 5px; }
+      .contact-panel { padding: 25px 20px; }
+      .footer-inner { align-items: start; flex-direction: column; }
+      .footer-note { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Arpit Pareek home"><span class="brand-mark">∴</span><span>ARPIT PAREEK</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">MENU +</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#focus">Interests</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#contact">Contact ↗</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="container" id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow">Class XII · PCM · Rajasthan, India</div>
+          <h1 id="hero-title">I build to understand <span class="accent">how people think.</span></h1>
+          <p class="hero-lede">I’m <strong>Arpit Pareek</strong>, a school student from Shrimadhopur, Rajasthan. I learn by building small, independent projects at the intersection of <strong>AI, Bayesian reasoning, reinforcement learning, and human behaviour.</strong></p>
+          <div class="hero-tags" aria-label="Areas I explore">
+            <span class="tag">Bayesian reasoning</span>
+            <span class="tag">Cognitive computing</span>
+            <span class="tag">Reinforcement learning</span>
+            <span class="tag">AI for students</span>
+          </div>
+          <div class="actions">
+            <a class="button button-primary" href="#projects">Explore my work <span class="arrow">↘</span></a>
+            <a class="button button-quiet" href="https://github.com/arpitprk89" target="_blank" rel="noopener noreferrer">GitHub profile <span class="arrow">↗</span></a>
+          </div>
+          <p class="hero-footnote">INDEPENDENT BUILDER · LEARN IN PUBLIC · CURRENTLY IN CLASS XII</p>
+        </div>
+        <div class="hero-visual">
+          <div class="portrait-frame">
+            <img src="assets/arpit-portrait.jpg" alt="Portrait of Arpit Pareek" width="720" height="1024" fetchpriority="high">
+            <div class="portrait-caption"><span class="portrait-name">Arpit Pareek</span><span class="portrait-meta">Student<br>Builder</span></div>
+          </div>
+          <div class="status-note"><b>NOW EXPLORING</b><span>Decision-making, learning systems, and technology that starts with people.</span></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="section-kicker">01 / About</p><h2 class="section-title">Curiosity first.<br>Credentials later.</h2></div>
+          <p class="section-summary">A current picture of where I am—not a claim that I have everything figured out.</p>
+        </div>
+        <div class="about-grid">
+          <div class="prose">
+            <p>I’m currently studying <strong>Physics, Chemistry, and Mathematics in Class XII</strong> in Rajasthan, India. Alongside school, I teach myself through code, documentation, experiments, and projects that help me make sense of a question.</p>
+            <p>My interests are converging around one theme: <strong>how people learn, make decisions, and respond to uncertainty</strong>—and whether computational ideas can help us understand those processes more clearly.</p>
+            <p>I’m still learning. I try to make that visible: describe what a project does, state its assumptions, and be clear about what it cannot prove. A working prototype is a starting point for investigation, not the end of it.</p>
+            <div class="quote">“I learn by building. Every project begins with a question I don’t have an answer to yet.”</div>
+          </div>
+          <div class="facts" aria-label="Profile facts">
+            <div class="fact"><div class="fact-label">Current stage</div><div class="fact-value accent">Class XII · PCM</div></div>
+            <div class="fact"><div class="fact-label">Based in</div><div class="fact-value">Shrimadhopur,<br>Rajasthan</div></div>
+            <div class="fact"><div class="fact-label">Main approach</div><div class="fact-value">Learn by building</div></div>
+            <div class="fact"><div class="fact-label">Long-term direction</div><div class="fact-value">AI &amp; cognition</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="focus">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="section-kicker">02 / Interests</p><h2 class="section-title">Questions I keep returning to.</h2></div>
+          <p class="section-summary">These are areas I’m actively exploring through projects and self-directed learning—not labels of mastery.</p>
+        </div>
+        <div class="focus-grid">
+          <article class="focus-card"><span class="focus-index">A / 01</span><h3>Bayesian reasoning</h3><p>How should a belief change when new evidence arrives? I’m interested in using probability to make uncertainty more explicit in decision systems.</p><span class="small-label">Inference · Uncertainty · Decisions</span></article>
+          <article class="focus-card"><span class="focus-index">A / 02</span><h3>Learning by feedback</h3><p>Reinforcement learning gives me a way to explore how an agent can improve through experience, mistakes, and feedback instead of a fixed route.</p><span class="small-label">Q-learning · Exploration</span></article>
+          <article class="focus-card"><span class="focus-index">A / 03</span><h3>Cognition &amp; education</h3><p>I build student-centred experiments around learning, pressure, personal choices, and how technology might support reflection without replacing human judgement.</p><span class="small-label">Cognitive models · Student support</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="section-kicker">03 / Selected work</p><h2 class="section-title">Questions turned into projects.</h2></div>
+          <p class="section-summary">Independent builds and research-style explorations. Some are live demos; others are open-ended experiments with limitations stated honestly.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card featured">
+            <div class="project-top"><span class="project-number">PROJECT / 01</span><span class="project-status">LIVE · 15 OCT 2026</span></div>
+            <h3>ARPIK.AI</h3><div class="project-subtitle">“Your Secret Friend”</div>
+            <p>A student-focused reflection and decision-support companion. It aims to help people notice patterns, weigh trade-offs, explore opportunities, and consider a next step—without making the decision for them.</p>
+            <div class="project-tags"><span>AI</span><span>Reflection</span><span>Decision support</span><span>Student-centred</span></div>
+            <div class="project-links"><a class="text-link" href="https://arpik-ai.vercel.app/" target="_blank" rel="noopener noreferrer">Open app <span>↗</span></a><a class="text-link" href="https://arpik-ai-story.vercel.app/" target="_blank" rel="noopener noreferrer">Read the story <span>↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-top"><span class="project-number">PROJECT / 02</span><span class="project-status">LIVE DEMO</span></div>
+            <h3>Brain 2.0</h3><div class="project-subtitle">A Bayesian model of student cognitive load</div>
+            <p>A self-reflection tool that combines repeated reports about study hours, sleep, stress, exam pressure, and felt support to estimate a low, moderate, or high cognitive-load state. It is a learning project—not a clinical or diagnostic tool.</p>
+            <div class="project-tags"><span>Bayesian updating</span><span>HTML / CSS / JS</span><span>Student wellbeing</span></div>
+            <div class="project-links"><a class="text-link" href="https://arpitprk89.github.io/Brain-2.0/" target="_blank" rel="noopener noreferrer">Open project <span>↗</span></a><a class="text-link" href="https://github.com/arpitprk89/Brain-2.0" target="_blank" rel="noopener noreferrer">Source <span>↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-top"><span class="project-number">PROJECT / 03</span><span class="project-status">INTERACTIVE</span></div>
+            <h3>RL Visualiser</h3><div class="project-subtitle">Q-learning through trial and feedback</div>
+            <p>An interactive grid where an agent learns to reach a goal through experience. The visual feedback makes it easier to follow how actions, mistakes, and rewards affect the route it learns.</p>
+            <div class="project-tags"><span>Reinforcement learning</span><span>Q-learning</span><span>Visualisation</span></div>
+            <div class="project-links"><a class="text-link" href="https://arpitprk89.github.io/rl-visuliser/" target="_blank" rel="noopener noreferrer">Open visualiser <span>↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-top"><span class="project-number">PROJECT / 04</span><span class="project-status">CODE</span></div>
+            <h3>Bayesian Decision Maker</h3><div class="project-subtitle">Reasoning under uncertainty</div>
+            <p>A project exploring Bayesian inference for decision-making when outcomes are uncertain. It is an independent learning build inspired by research interests in decision systems, including Prof. Kenji Doya’s work.</p>
+            <div class="project-tags"><span>Python</span><span>Bayesian inference</span><span>Decision systems</span></div>
+            <div class="project-links"><a class="text-link" href="https://github.com/arpitprk89/bayesian-decision-maker" target="_blank" rel="noopener noreferrer">View repository <span>↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-top"><span class="project-number">PROJECT / 05</span><span class="project-status">RESEARCH CONCEPT</span></div>
+            <h3>Vidya Yatra</h3><div class="project-subtitle">The journey of learning</div>
+            <p>An interactive exploration of India’s school journey from Class 1 to 12, including subject-stream choices, social expectations, and how exam systems can influence future decisions. Research models are distinguished from sourced figures.</p>
+            <div class="project-tags"><span>Education</span><span>Research communication</span><span>Interactive web</span></div>
+            <div class="project-links"><a class="text-link" href="https://arpitprk89.github.io/-Vidya-Yatra/" target="_blank" rel="noopener noreferrer">Explore the project <span>↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-top"><span class="project-number">PROJECT / 06</span><span class="project-status">IN PROGRESS</span></div>
+            <h3>33 KOTI</h3><div class="project-subtitle">The inner pattern study</div>
+            <p>An exploratory project asking whether traditional categories can be examined as recurring inner qualities and family patterns. The idea remains a hypothesis; it is not presented as established psychology or scientific proof.</p>
+            <div class="project-tags"><span>Culture</span><span>Human behaviour</span><span>Hypothesis testing</span></div>
+            <div class="project-links"><a class="text-link" href="https://arpitprk89.github.io/33-KOTI/" target="_blank" rel="noopener noreferrer">Explore the project <span>↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="project-top"><span class="project-number">PROJECT / 07</span><span class="project-status">CODE</span></div>
+            <h3>Cognitive AI Simulator</h3><div class="project-subtitle">State, decisions, and memory</div>
+            <p>A small web experiment exploring how a changing internal state—such as mood, stress, and focus—might be represented alongside decisions and a running memory log.</p>
+            <div class="project-tags"><span>HTML</span><span>State modelling</span><span>Cognitive computing</span></div>
+            <div class="project-links"><a class="text-link" href="https://github.com/arpitprk89/cognitive-ai-simulator" target="_blank" rel="noopener noreferrer">View repository <span>↗</span></a></div>
+          </article>
+        </div>
+        <div class="honesty-note"><strong>Research note</strong><span>These projects are student-led experiments. Where I use hand-picked weights, illustrative examples, or hypotheses, I aim to say so clearly rather than imply validation that has not happened.</span></div>
+        <div style="margin-top:22px"><a class="button button-quiet" href="https://github.com/arpitprk89?tab=repositories" target="_blank" rel="noopener noreferrer">Browse all repositories <span class="arrow">↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="section-kicker">04 / Journey</p><h2 class="section-title">Small-town start.<br>Open-ended questions.</h2></div>
+          <p class="section-summary">A couple of public milestones that reflect the work so far.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item"><div class="timeline-date">15 OCTOBER 2026</div><h3>ARPIK.AI went live</h3><p>Published a student-centred reflection and decision-support project, shaped by the belief that guidance should help people think—not make choices on their behalf.</p></article>
+          <article class="timeline-item"><div class="timeline-date">29 SEPTEMBER 2026</div><h3>Featured by Shekhawati Live</h3><p>A regional article covered my early AI and digital projects, including Brain 2.0, Vidya Yatra, 33 KOTI, and RL Visualiser.</p><div style="margin-top:14px"><a class="text-link" href="https://shekhawatilive.com/sikar/shrimadhopur-16-year-old-arpit-parik-ai-projects.html/" target="_blank" rel="noopener noreferrer">Read the article <span>↗</span></a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="principles">
+      <div class="container">
+        <div class="section-head"><div><p class="section-kicker">05 / How I work</p><h2 class="section-title">Curious, but careful.</h2></div><p class="section-summary">I want the work to be interesting—but also transparent about what it shows and what remains unknown.</p></div>
+        <div class="beyond-grid">
+          <div class="beyond-card"><h3>My working principles</h3><ul class="principles"><li>Start with a real question rather than a technology looking for a problem.</li><li>Build a small experiment that makes the idea easier to inspect.</li><li>Separate facts, assumptions, hypotheses, and illustrative examples.</li><li>Show limitations and keep learning in public.</li></ul></div>
+          <div class="beyond-card"><h3>Beyond code</h3><p>Physics, mathematics, dance, and storytelling all give me different ways to think. I’m especially interested in technology that makes learning and opportunity feel more accessible to students who may not have a large ecosystem around them.</p><p style="margin-top:14px">My next step is to keep improving the foundations—programming, mathematics, probability, and careful experimentation—while continuing to build.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div><p class="section-kicker">06 / Contact</p><h2>Good questions are better when shared.</h2><p class="intro">For thoughtful conversations about AI, student-centred technology, projects, or learning, reach out through the links here.</p><div class="actions" style="margin-top:25px"><a class="button button-primary" href="mailto:arpitpareek79@gmail.com">Email me <span class="arrow">↗</span></a></div></div>
+          <div class="contact-list">
+            <a class="contact-link" href="mailto:arpitpareek79@gmail.com"><span><span class="contact-label">Email</span><span class="contact-value">arpitpareek79@gmail.com</span></span><span class="contact-arrow">↗</span></a>
+            <a class="contact-link" href="https://www.linkedin.com/in/arpit-pareek-83b533361/" target="_blank" rel="noopener noreferrer"><span><span class="contact-label">LinkedIn</span><span class="contact-value">Connect professionally</span></span><span class="contact-arrow">↗</span></a>
+            <a class="contact-link" href="https://github.com/arpitprk89" target="_blank" rel="noopener noreferrer"><span><span class="contact-label">GitHub</span><span class="contact-value">Code and experiments</span></span><span class="contact-arrow">↗</span></a>
+            <a class="contact-link" href="https://arpitszone.netlify.app/" target="_blank" rel="noopener noreferrer"><span><span class="contact-label">AZ Group / Arpit’s Zone</span><span class="contact-value">Explore the wider initiative</span></span><span class="contact-arrow">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><div>© <span id="year">2026</span> Arpit Pareek · Built with curiosity.</div><div class="footer-note"><a href="#top">Back to top ↑</a><br>AI · Reasoning · Human-centred technology</div></div></footer>
+
+  <script>
+    (() => {
+      const menuButton = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      if (menuButton && navLinks) {
+        menuButton.addEventListener('click', () => {
+          const isOpen = navLinks.classList.toggle('open');
+          menuButton.setAttribute('aria-expanded', String(isOpen));
+          menuButton.textContent = isOpen ? 'CLOSE −' : 'MENU +';
+        });
+        navLinks.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            menuButton.setAttribute('aria-expanded', 'false');
+            menuButton.textContent = 'MENU +';
+          });
+        });
+      }
+      const year = document.getElementById('year');
+      if (year) year.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>
